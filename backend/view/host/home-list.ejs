@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Host Dashboard - Airbnb</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h3 {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col antialiased">
+    <%- include('../nav') %>
+
+    <header class="bg-white shadow-md py-6 border-b border-gray-200">
+        <div class="container mx-auto px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between">
+            <h1 class="text-3xl lg:text-4xl font-extrabold text-gray-900 mb-4 sm:mb-0">
+                Your Homes <span class="text-red-500">Airbnb</span>
+            </h1>
+            <a href='/home/add-home'
+                class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-xl shadow-md text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-300 ease-in-out transform hover:scale-105">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                </svg>
+                Add New Home
+            </a>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-6 lg:px-8 py-12">
+        <div class="bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-gray-100">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8 pb-4 border-b-2 border-red-100">
+                <i class="fas fa-list-alt text-red-400 mr-3"></i>Take a look at your registered homes
+            </h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <% if (homes && homes.length > 0) { %>
+                    <% homes.forEach(function(home) { %>
+                        <div class="bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden transform transition duration-300 ease-in-out hover:scale-102 hover:shadow-2xl">
+                            <% if (home.photo) { %>
+                                <img src="<%= home.photo %>" alt="<%= home.housename %>"
+                                    class="w-full h-56 object-cover object-center border-b border-gray-200">
+                            <% } else { %>
+                                <div class="w-full h-56 bg-gray-100 flex items-center justify-center text-gray-400 text-lg font-medium border-b border-gray-200">
+                                    <i class="fas fa-image text-4xl mb-2"></i>
+                                    <span class="sr-only">No Image Available</span>
+                                </div>
+                            <% } %>
+                            <div class="p-5">
+                                <h4 class="text-xl font-extrabold text-gray-900 mb-2 truncate" title="<%= home.housename %>">
+                                    <%= home.housename %>
+                                </h4>
+                                <p class="text-gray-700 text-sm mb-1"><span class="font-semibold text-gray-800">Price:</span> <span class="text-green-600 font-bold">₹<%= home.price %></span> / night</p>
+                                <p class="text-gray-700 text-sm mb-1 truncate" title="<%= home.location %>"><span class="font-semibold text-gray-800">Location:</span> <%= home.location %></p>
+                                <p class="text-gray-700 text-sm mb-4"><span class="font-semibold text-gray-800">Rating:</span> <span class="text-yellow-500 font-bold"><%= home.rating %></span> / 5</p>
+
+                                <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3 mt-4">
+                                    <a href="/home/edit-home/<%= home._id %>?editing=true"
+                                        class="flex-1 inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg text-center transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                        <i class="fas fa-edit mr-2"></i> Edit
+                                    </a>
+                                    <form action="/deletehome/<%= home._id %>" method="POST" class="flex-1">
+                                        <button type="submit"
+                                            class="w-full inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-4 rounded-lg text-center transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                            <i class="fas fa-trash-alt mr-2"></i> Delete
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <div class="col-span-full bg-gray-100 p-8 rounded-xl text-center border-2 border-dashed border-gray-300 flex flex-col items-center justify-center min-h-[200px]">
+                        <i class="fas fa-house-damage text-6xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-600 text-xl font-medium mb-4">
+                            Oops! No homes registered yet.
+                        </p>
+                        <p class="text-gray-500 text-base mb-6">
+                            It looks like you haven't listed any properties. Let's get started!
+                        </p>
+                        <a href='/home/add-home'
+                            class="inline-flex items-center px-8 py-3 border border-transparent text-lg font-medium rounded-lg shadow-sm text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-300 ease-in-out transform hover:scale-105">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+                            </svg>
+                            Add Your First Home
+                        </a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    </main>
+
+    <%# include('partials/footer') %>
+</body>
+
+</html>

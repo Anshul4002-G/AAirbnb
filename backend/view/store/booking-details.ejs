@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Stay - AirbnbHome</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Base font styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Subtle scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; /* gray-300 */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0; /* gray-400 */
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col antialiased">
+    <!-- Navigation Bar (assuming it's included via EJS) -->
+    <%- include('../nav') %>
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-sm py-8 border-b border-gray-100">
+        <div class="container mx-auto px-6 lg:px-8">
+            <h1 class="text-4xl lg:text-5xl font-extrabold text-gray-900 leading-tight">
+                Book Your <span class="text-teal-600">Stay</span>
+            </h1>
+            <p class="text-gray-600 mt-3 text-lg">Provide your details to confirm your unforgettable experience.</p>
+        </div>
+    </header>
+
+    <!-- Main Content Section - Booking Form -->
+    <main class="flex-grow container mx-auto px-6 lg:px-8 py-12 flex items-center justify-center">
+        <div class="bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-gray-100 w-full max-w-2xl transform transition-all duration-300 hover:scale-[1.005]">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8 pb-4 border-b-2 border-teal-100 flex items-center">
+                <i class="fas fa-calendar-check text-teal-500 mr-3"></i>Booking Details
+            </h3>
+
+            <form action="/submit-booking" method="POST" class="space-y-6">
+                <!-- Check-in Date -->
+                <div>
+                    <label for="checkInDate" class="block text-lg font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-calendar-alt mr-2 text-gray-500"></i>Check-in Date
+                    </label>
+                    <input
+                        type="date"
+                        id="checkInDate"
+                        name="checkInDate"
+                        required
+                        class="w-full px-5 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 text-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-200 shadow-sm"
+                    >
+                </div>
+
+                <!-- Check-out Date -->
+                <div>
+                    <label for="checkOutDate" class="block text-lg font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-calendar-alt mr-2 text-gray-500"></i>Check-out Date
+                    </label>
+                    <input
+                        type="date"
+                        id="checkOutDate"
+                        name="checkOutDate"
+                        required
+                        class="w-full px-5 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 text-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-200 shadow-sm"
+                    >
+                </div>
+
+                <!-- Number of Guests -->
+                <div>
+                    <label for="numberOfGuests" class="block text-lg font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-users mr-2 text-gray-500"></i>Number of Guests
+                    </label>
+                    <input
+                        type="number"
+                        id="numberOfGuests"
+                        name="numberOfGuests"
+                        min="1"
+                        value="1"
+                        required
+                        class="w-full px-5 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 text-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-200 shadow-sm"
+                    >
+                </div>
+
+                <!-- Special Requests / Additional Details -->
+                <div>
+                    <label for="specialRequests" class="block text-lg font-semibold text-gray-700 mb-2">
+                        <i class="fas fa-comment-dots mr-2 text-gray-500"></i>Special Requests (Optional)
+                    </label>
+                    <textarea
+                        id="specialRequests"
+                        name="specialRequests"
+                        rows="4"
+                        placeholder="e.g., dietary restrictions, early check-in, late check-out..."
+                        class="w-full px-5 py-3 border border-gray-300 rounded-lg bg-gray-50 text-gray-800 text-lg focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition duration-200 shadow-sm resize-y"
+                    ></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="text-center pt-4">
+                    <button type="submit"
+                        class="inline-flex bg-blue-600 items-center justify-center bg-teal-600 hover:bg-teal-700 text-white font-semibold py-3.5 px-10 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105 focus:outline-none focus:ring-4 focus:ring-teal-300 text-xl">
+                        <i class="fas fa-paper-plane mr-3"></i> Confirm Booking
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Footer Section (reused from previous examples) -->
+    <footer class="bg-gray-900 text-gray-300 py-12 mt-16">
+        <div class="container mx-auto px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                <div class="flex flex-col">
+                    <h3 class="text-xl font-bold mb-5 text-teal-400">About AirbnbHome</h3>
+                    <ul class="space-y-3 text-base flex flex-col">
+                        <li><a href="/about" class="hover:text-white transition duration-200">How Airbnb works</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Newsroom</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Investors</a></li>
+                        <li><a href="#" class="hover:underline">Airbnb Luxe</a></li>
+                        <li><a href="#" class="hover:underline">HotelTonight</a></li>
+                        <li><a href="#" class="hover:underline">Airbnb for Work</a></li>
+                        <li><a href="#" class="hover:underline">Made possible by Hosts</a></li>
+                        <li><a href="#" class="hover:underline">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div class="flex flex-col">
+                    <h3 class="text-xl font-bold mb-5 text-teal-400">Community</h3>
+                    <ul class="space-y-3 text-base flex flex-col">
+                        <li><a href="#" class="hover:text-white transition duration-200">Diversity & Belonging</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Accessibility</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Airbnb Associates</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Frontline Stays</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Guest Referrals</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Airbnb.org</a></li>
+                    </ul>
+                </div>
+
+                <div class="flex flex-col">
+                    <h3 class="text-xl font-bold mb-5 text-teal-400">Host</h3>
+                    <ul class="space-y-3 text-base flex flex-col">
+                        <li><a href="/home/add-home" class="hover:text-white transition duration-200">Host your home</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Host an Online Experience</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Host an Experience</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Responsible hosting</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Resource Center</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Community Center</a></li>
+                    </ul>
+                </div>
+
+                <div class="flex flex-col">
+                    <h3 class="text-xl font-bold mb-5 text-teal-400">Support</h3>
+                    <ul class="space-y-3 text-base flex flex-col">
+                        <li><a href="/contact" class="hover:text-white transition duration-200">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Cancellation options</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Neighborhood Safety</a></li>
+                        <li><a href="#" class="hover:text-white transition duration-200">Trust & Safety</a></li>
+                    </ul>
+                    <div class="flex space-x-5 mt-8">
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-facebook-f text-2xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-twitter text-2xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-instagram text-2xl"></i></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fab fa-linkedin-in text-2xl"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-10 pt-8 text-center text-gray-400 text-sm">
+                <p>&copy; 2025 AirbnbHome, Inc. All rights reserved.</p>
+                <p class="mt-3">
+                    <a href="#" class="hover:underline mx-3">Privacy</a> &middot;
+                    <a href="#" class="hover:underline mx-3">Terms</a> &middot;
+                    <a href="#" class="hover:underline mx-3">Sitemap</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

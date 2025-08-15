@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Favorite Homes - Airbnb</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Google Fonts - Poppins for headings, Inter for body text -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h3 {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col antialiased">
+    <%- include('../nav') %>
+
+    <header class="bg-white shadow-md py-6 border-b border-gray-200">
+        <div class="container mx-auto px-6 lg:px-8">
+            <h1 class="text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">
+                Your Favorite <span class="text-red-500">Airbnb</span> Homes
+            </h1>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-6 lg:px-8 py-12">
+        <div class="bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-gray-100">
+            <h3 class="text-2xl font-bold text-gray-800 mb-8 pb-4 border-b-2 border-red-100 flex items-center">
+                <i class="fas fa-heart text-red-400 mr-3"></i>Your Curated Favorites
+            </h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <% if (homes && homes.length > 0) { %>
+                    <% homes.forEach(function(home) { %>
+                        <div
+                            class="bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden transform transition duration-300 ease-in-out hover:scale-102 hover:shadow-2xl">
+                            <% if (home.photo) { %>
+                                <img src="<%= home.photo %>" alt="<%= home.housename %>"
+                                    class="w-full h-56 object-cover object-center border-b border-gray-200">
+                                <% } else { %>
+                                    <div
+                                        class="w-full h-56 bg-gray-100 flex items-center justify-center flex-col text-gray-400 text-lg font-medium border-b border-gray-200">
+                                        <i class="fas fa-image text-4xl mb-2"></i>
+                                        <span class="text-sm">No Image Available</span>
+                                    </div>
+                                    <% } %>
+                                    <div class="p-5">
+                                        <h4 class="text-xl font-extrabold text-gray-900 mb-2 truncate"
+                                            title="<%= home.housename %>">
+                                            <%= home.housename %>
+                                        </h4>
+                                        <p class="text-gray-700 text-sm mb-1"><span
+                                                class="font-semibold text-gray-800">Price:</span> <span
+                                                class="text-green-600 font-bold">₹<%= home.price %></span> / night</p>
+                                        <p class="text-gray-700 text-sm mb-1 truncate" title="<%= home.location %>"><span
+                                                class="font-semibold text-gray-800">Location:</span>
+                                            <%= home.location %>
+                                        </p>
+                                        <p class="text-gray-700 text-sm mb-4"><span
+                                                class="font-semibold text-gray-800">Rating:</span> <span
+                                                class="text-yellow-500 font-bold"><%= home.rating %></span> / 5</p>
+
+                                        <div class="flex flex-col space-y-3 mt-4">
+                                            <a href="homes/<%= home._id %>"
+                                                class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2.5 px-4 rounded-lg text-center transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                                <i class="fas fa-info-circle mr-2"></i> View Details
+                                            </a>
+                                            <!-- Changed 'Book' to 'Book Now' and styled as primary action -->
+                                            <button
+                                                class="inline-flex items-center justify-center bg-red-500 hover:bg-red-600 text-white font-semibold py-2.5 px-4 rounded-lg text-center transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                                <i class="fas fa-calendar-check mr-2"></i> Book Now
+                                            </button>
+                                            <!-- Renamed 'Delete From Cart' to 'Remove from Favorites' and styled as a clear removal action -->
+                                            <form action="/deletefav/<%= home._id %>" method="POST">
+                                                <button type="submit"
+                                                    class="w-full inline-flex items-center justify-center bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2.5 px-4 rounded-lg text-center transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400">
+                                                    <i class="fas fa-times-circle mr-2"></i> Remove from Favorites
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                        </div>
+                        <% }); %>
+                            <% } else { %>
+                                <div
+                                    class="col-span-full bg-gray-100 p-8 rounded-xl text-center border-2 border-dashed border-gray-300 flex flex-col items-center justify-center min-h-[200px]">
+                                    <i class="far fa-heart text-6xl text-gray-400 mb-4"></i>
+                                    <p class="text-gray-600 text-xl font-medium mb-4">
+                                        Your favorites list is empty!
+                                    </p>
+                                    <p class="text-gray-500 text-base mb-6">
+                                        Start exploring homes and click the heart icon to save your favorites.
+                                    </p>
+                                    <a href='/explore'
+                                        class="inline-flex items-center px-8 py-3 border border-transparent text-lg font-medium rounded-lg shadow-sm text-white bg-red-500 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-300 ease-in-out transform hover:scale-105">
+                                        <i class="fas fa-compass mr-3"></i> Explore Homes
+                                    </a>
+                                </div>
+                                <% } %>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= home.housename %> - Airbnb</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col antialiased">
+    <%- include('../nav') %>
+
+    <header class="bg-white shadow-md py-6 border-b border-gray-200">
+        <div class="container mx-auto px-6 lg:px-8">
+            <h1 class="text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">
+                <span class="text-red-500"><%= home.housename %></span> Details
+            </h1>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-6 lg:px-8 py-12">
+        <div class="bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-gray-100 flex flex-col lg:flex-row gap-8">
+            <div class="lg:w-2/3">
+                <% if (home.photo) { %>
+                    <img src="<%= home.photo %>" alt="<%= home.housename %>"
+                        class="w-full h-96 object-cover rounded-xl shadow-md border border-gray-200">
+                    <% } else { %>
+                        <div
+                            class="w-full h-96 bg-gray-100 rounded-xl shadow-md border border-gray-200 flex items-center justify-center text-gray-400 text-2xl font-medium flex-col">
+                            <i class="fas fa-image text-6xl mb-4"></i>
+                            No Image Available
+                        </div>
+                        <% } %>
+            </div>
+
+            <div class="lg:w-1/3 p-4 bg-gray-50 rounded-xl shadow-inner border border-gray-200">
+                <h2 class="text-3xl font-extrabold text-gray-900 mb-4 pb-2 border-b-2 border-red-100">
+                    <%= home.housename %>
+                </h2>
+
+                <p class="text-gray-800 text-2xl font-bold mb-4">
+                    <span class="text-green-600">₹<%= home.price %></span> / night
+                </p>
+
+                <div class="space-y-3 mb-6">
+                    <p class="text-gray-700 text-lg flex items-center">
+                        <i class="fas fa-map-marker-alt text-red-400 mr-3"></i>
+                        <span class="font-semibold">Location:</span> <%= home.location %>
+                    </p>
+                    <p class="text-gray-700 text-lg flex items-center">
+                        <i class="fas fa-star text-yellow-500 mr-3"></i>
+                        <span class="font-semibold">Rating:</span> <%= home.rating %>/5
+                    </p>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="font-semibold text-gray-800 text-xl mb-2 flex items-center">
+                        <i class="fas fa-info-circle text-blue-400 mr-3"></i>Description:
+                    </h3>
+                    <p class="text-gray-700 leading-relaxed text-base">
+                        <%= home.description %>
+                    </p>
+                </div>
+
+                <% if(user && user.usertype === 'guest'){%>
+                    <div class="flex flex-col space-y-4">
+                        <div class="flex flex-col space-y-3">
+                           <form action="/home/book/<%= home._id%>" method="POST">
+                                                    <input type="hidden" name="id" value="<%= home._id%>">
+                                                    <button type="submit"
+                                                        class="w-full inline-flex items-center justify-center bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                                                        <i class="fas fa-bookmark mr-2"></i> Book This Home
+                                                    </button>
+                                                </form>
+                                            </div>
+                        <form action="/favourite" method="POST" class="w-full">
+                            <input type="hidden" name="id" value="<%= home._id%>">
+                            <button type="submit"
+                                class="w-full inline-flex items-center justify-center bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600">
+                                <i class="fas fa-heart mr-3"></i> Add to Favorites
+                            </button>
+                        </form>
+                    </div>
+                <%}%>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800   text-white py-10 mt-12">
+        <div class="container mx-auto px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 flex">
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-red-400">About</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="/about" class="hover:underline">How Airbnb works</a></li>
+                    <li><a href="#" class="hover:underline">Newsroom</a></li>
+                    <li><a href="#" class="hover:underline">Investors</a></li>
+                    <li><a href="#" class="hover:underline">Airbnb Luxe</a></li>
+                    <li><a href="#" class="hover:underline">HotelTonight</a></li>
+                    <li><a href="#" class="hover:underline">Airbnb for Work</a></li>
+                    <li><a href="#" class="hover:underline">Made possible by Hosts</a></li>
+                    <li><a href="#" class="hover:underline">Careers</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-red-400">Community</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:underline">Diversity & Belonging</a></li>
+                    <li><a href="#" class="hover:underline">Accessibility</a></li>
+                    <li><a href="#" class="hover:underline">Airbnb Associates</a></li>
+                    <li><a href="#" class="hover:underline">Frontline Stays</a></li>
+                    <li><a href="#" class="hover:underline">Guest Referrals</a></li>
+                    <li><a href="#" class="hover:underline">Airbnb.org</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-red-400">Host</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="/home/add-home" class="hover:underline">Host your home</a></li>
+                    <li><a href="#" class="hover:underline">Host an Online Experience</a></li>
+                    <li><a href="#" class="hover:underline">Host an Experience</a></li>
+                    <li><a href="#" class="hover:underline">Responsible hosting</a></li>
+                    <li><a href="#" class="hover:underline">Resource Center</a></li>
+                    <li><a href="#" class="hover:underline">Community Center</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold mb-4 text-red-400">Support</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="/contact" class="hover:underline">Help Center</a></li>
+                    <li><a href="#" class="hover:underline">Cancellation options</a></li>
+                    <li><a href="#" class="hover:underline">Neighborhood Safety</a></li>
+                    <li><a href="#" class="hover:underline">Trust & Safety</a></li>
+                </ul>
+                <div class="flex space-x-4 mt-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200"><i class="fab fa-facebook-f text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200"><i class="fab fa-twitter text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200"><i class="fab fa-instagram text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200"><i class="fab fa-linkedin-in text-xl"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400 text-sm">
+            <p>&copy; <%= new Date().getFullYear() %> Airbnb, Inc. All rights reserved.</p>
+            <p class="mt-2">
+                <a href="#" class="hover:underline mx-2">Privacy</a> &middot;
+                <a href="#" class="hover:underline mx-2">Terms</a> &middot;
+                <a href="#" class="hover:underline mx-2">Sitemap</a>
+            </p>
+        </div>
+    </footer>
+</body>
+
+</html>

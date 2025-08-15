@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Home - Airbnb</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col antialiased">
+    <%- include('../nav') %>
+
+    <header class="bg-white shadow-sm py-6">
+        <div class="container mx-auto px-6 lg:px-8">
+            <h1 class="text-4xl font-extrabold text-gray-900 leading-tight">
+                Add Your New Home <span class="text-red-500">Airbnb</span>
+            </h1>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-6 lg:px-8 py-12 flex items-center justify-center">
+        <div class="bg-white p-8 md:p-10 rounded-2xl shadow-2xl max-w-lg w-full transform transition-all duration-300 hover:shadow-3xl">
+            <h2 class="text-2xl font-bold text-gray-800 mb-8 text-center">
+                <%= editing ? "Update Home Details" : "List Your Property" %>
+            </h2>
+            <form action="/home/<%= editing ? 'edit-home' : 'add-home'%>" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="id" value="<%= editing? home._id:'' %>">
+
+                <div class="mb-6">
+                    <label for="housename" class="block text-gray-800 text-sm font-semibold mb-2">
+                        House Name
+                    </label>
+                    <input type="text" name="housename" id="housename" placeholder="e.g., Cozy Beach House" required
+                        value="<%= editing? home.housename : ''%>"
+                        class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition duration-200 ease-in-out placeholder-gray-400">
+                </div>
+
+                <div class="mb-6">
+                    <label for="price" class="block text-gray-800 text-sm font-semibold mb-2">
+                        Price (per night)
+                    </label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 text-lg font-bold">₹</span>
+                        <input type="number" name="price" id="price" placeholder="e.g., 1500" required
+                            value="<%= editing? home.price : ''%>"
+                            class="pl-9 shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition duration-200 ease-in-out placeholder-gray-400">
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label for="location" class="block text-gray-800 text-sm font-semibold mb-2">
+                        Location
+                    </label>
+                    <input type="text" name="location" id="location" placeholder="e.g., Mumbai, India" required
+                        value="<%= editing? home.location : ''%>"
+                        class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition duration-200 ease-in-out placeholder-gray-400">
+                </div>
+
+                <div class="mb-6">
+                    <label for="rating" class="block text-gray-800 text-sm font-semibold mb-2">
+                        Rating (1-5)
+                    </label>
+                    <input type="number" name="rating" id="rating" placeholder="e.g., 4.5" step="0.1" min="1" max="5" required
+                        value="<%= editing? home.rating : ''%>"
+                        class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition duration-200 ease-in-out placeholder-gray-400">
+                </div>
+
+                <div class="mb-6">
+                    <label for="photo" class="block text-gray-800 text-sm font-semibold mb-2">
+                        Upload Photo
+                    </label>
+                    <input type="file" name="photo" id="photo" accept="image/*"
+                        class="block w-full text-gray-700 text-sm file:mr-4 file:py-2.5 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-red-500 file:text-white hover:file:bg-red-600 file:transition-colors file:duration-200 focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent cursor-pointer rounded-lg border border-gray-300 bg-gray-50">
+                    <p class="mt-2 text-xs text-gray-500">Max file size: 5MB. Allowed formats: JPG, PNG, JPEG.</p>
+                </div>
+
+                <div class="mb-8">
+                    <label for="description" class="block text-gray-800 text-sm font-semibold mb-2">
+                        Description
+                    </label>
+                    <textarea name="description" id="description" rows="5" placeholder="Describe your home in detail..." required
+                        class="shadow-sm appearance-none border border-gray-300 rounded-lg w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-red-400 focus:border-transparent transition duration-200 ease-in-out resize-y placeholder-gray-400"><%= editing? home.description : ''%></textarea>
+                </div>
+
+                <div class="flex items-center justify-center">
+                    <button type="submit"
+                        class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3.5 px-6 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition duration-300 ease-in-out transform hover:scale-105 shadow-md text-lg">
+                        <%= editing? "Update Home" : "Add Home"%>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

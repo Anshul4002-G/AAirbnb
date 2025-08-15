@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Airbnb</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Google Fonts - Poppins for headings, Inter for body text -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col antialiased">
+    <%- include('../nav') %>
+
+    <header class="bg-white shadow-md py-6 border-b border-gray-200">
+        <div class="container mx-auto px-6 lg:px-8">
+            <h1 class="text-3xl lg:text-4xl font-extrabold text-gray-900 leading-tight">
+                Explore <span class="text-red-500">Airbnb</span>
+            </h1>
+        </div>
+    </header>
+
+    <main class="flex-grow container mx-auto px-6 lg:px-8 py-12">
+
+        <!-- Hero Section: Discover Your Next Adventure -->
+        <section class="relative bg-gradient-to-r from-red-500 to-pink-500 rounded-2xl shadow-xl p-10 md:p-16 mb-12 flex flex-col items-center justify-center text-center overflow-hidden">
+            <div class="absolute inset-0 opacity-10">
+                <!-- Background pattern/texture for visual interest -->
+                <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <defs>
+                        <pattern id="pattern-circles" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                            <circle cx="5" cy="5" r="1" fill="rgba(255,255,255,0.2)"/>
+                        </pattern>
+                    </defs>
+                    <rect x="0" y="0" width="100%" height="100%" fill="url(#pattern-circles)"/>
+                </svg>
+            </div>
+            <div class="relative z-10">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg">
+                    Discover Your Next Adventure
+                </h2>
+                <p class="text-xl text-white opacity-90 mb-8 max-w-3xl">
+                    Find unique stays and immersive experiences that make you feel at home, anywhere in the world.
+                </p>
+                <a href="/search-homes"
+                    class="inline-flex items-center px-10 py-4 bg-white text-red-600 font-bold rounded-full shadow-lg hover:bg-gray-100 transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-75">
+                    <i class="fas fa-search mr-3"></i> Start Exploring Stays
+                </a>
+            </div>
+        </section>
+
+        <!-- Explore by Category Section -->
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-gray-100 mb-12">
+            <h3 class="text-3xl font-bold text-gray-800 mb-8 pb-4 border-b-2 border-red-100 flex items-center">
+                <i class="fas fa-th-large text-red-400 mr-3"></i>Explore by Category
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <div class="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:bg-gray-100 transition duration-200 border border-gray-200 cursor-pointer transform hover:-translate-y-1">
+                    <i class="fas fa-tree text-green-600 text-4xl mb-4"></i>
+                    <h4 class="font-semibold text-gray-800 mb-2">Nature Retreats</h4>
+                    <p class="text-gray-600 text-sm">Escape to serene cabins and secluded hideaways.</p>
+                </div>
+                <div class="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:bg-gray-100 transition duration-200 border border-gray-200 cursor-pointer transform hover:-translate-y-1">
+                    <i class="fas fa-city text-blue-600 text-4xl mb-4"></i>
+                    <h4 class="font-semibold text-gray-800 mb-2">City Escapes</h4>
+                    <p class="text-gray-600 text-sm">Experience vibrant urban life like a local.</p>
+                </div>
+                <div class="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:bg-gray-100 transition duration-200 border border-gray-200 cursor-pointer transform hover:-translate-y-1">
+                    <i class="fas fa-umbrella-beach text-yellow-600 text-4xl mb-4"></i>
+                    <h4 class="font-semibold text-gray-800 mb-2">Beachfront Bliss</h4>
+                    <p class="text-gray-600 text-sm">Sun, sand, and stunning ocean views await.</p>
+                </div>
+                <div class="flex flex-col items-center text-center p-6 bg-gray-50 rounded-lg shadow-sm hover:bg-gray-100 transition duration-200 border border-gray-200 cursor-pointer transform hover:-translate-y-1">
+                    <i class="fas fa-campground text-purple-600 text-4xl mb-4"></i>
+                    <h4 class="font-semibold text-gray-800 mb-2">Unique Stays</h4>
+                    <p class="text-gray-600 text-sm">From treehouses to yurts, find extraordinary places.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How Airbnb Works Section -->
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-gray-100 mb-12">
+            <h3 class="text-3xl font-bold text-gray-800 mb-8 pb-4 border-b-2 border-red-100 flex items-center">
+                <i class="fas fa-cogs text-red-400 mr-3"></i>How Airbnb Works
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-sm border border-gray-200">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4 border-4 border-red-200">
+                        <i class="fas fa-map-marker-alt text-red-500 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800 mb-2">1. Find Your Stay</h4>
+                    <p class="text-gray-600 text-sm">Search millions of unique listings worldwide.</p>
+                </div>
+                <div class="flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-sm border border-gray-200">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 border-4 border-blue-200">
+                        <i class="fas fa-calendar-check text-blue-500 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800 mb-2">2. Book with Confidence</h4>
+                    <p class="text-gray-600 text-sm">Secure payments and host verification for peace of mind.</p>
+                </div>
+                <div class="flex flex-col items-center p-6 bg-gray-50 rounded-lg shadow-sm border border-gray-200">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4 border-4 border-green-200">
+                        <i class="fas fa-suitcase-rolling text-green-500 text-3xl"></i>
+                    </div>
+                    <h4 class="font-semibold text-gray-800 mb-2">3. Enjoy Your Trip</h4>
+                    <p class="text-gray-600 text-sm">Experience local culture and create lasting memories.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Experiences Section -->
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-gray-100 mb-12">
+            <h3 class="text-3xl font-bold text-gray-800 mb-8 pb-4 border-b-2 border-red-100 flex items-center">
+                <i class="fas fa-palette text-red-400 mr-3"></i>Discover Airbnb Experiences
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="bg-gray-50 rounded-lg shadow-sm overflow-hidden border border-gray-200 cursor-pointer transform hover:scale-102 transition duration-300">
+                    <img src="https://placehold.co/400x250/FEE2E2/EF4444?text=Cooking+Class" alt="Cooking Class" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-semibold text-gray-800 text-lg mb-1">Authentic Local Cooking Class</h4>
+                        <p class="text-gray-600 text-sm">Learn traditional recipes from a local chef.</p>
+                        <span class="text-red-500 font-bold mt-2 block">Starting from ₹3,500</span>
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-lg shadow-sm overflow-hidden border border-gray-200 cursor-pointer transform hover:scale-102 transition duration-300">
+                    <img src="https://placehold.co/400x250/DBEAFE/3B82F6?text=City+Walking+Tour" alt="City Walking Tour" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-semibold text-gray-800 text-lg mb-1">Historic City Walking Tour</h4>
+                        <p class="text-gray-600 text-sm">Explore hidden gems and iconic landmarks.</p>
+                        <span class="text-red-500 font-bold mt-2 block">Starting from ₹1,200</span>
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-lg shadow-sm overflow-hidden border border-gray-200 cursor-pointer transform hover:scale-102 transition duration-300">
+                    <img src="https://placehold.co/400x250/D1FAE5/10B981?text=Yoga+Retreat" alt="Yoga Retreat" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h4 class="font-semibold text-gray-800 text-lg mb-1">Morning Yoga & Meditation</h4>
+                        <p class="text-gray-600 text-sm">Rejuvenate your mind and body with a local instructor.</p>
+                        <span class="text-red-500 font-bold mt-2 block">Starting from ₹800</span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-10">
+                <a href="/experiences"
+                    class="inline-flex items-center px-8 py-3 bg-red-500 text-white font-semibold rounded-lg shadow-md hover:bg-red-600 transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    <i class="fas fa-ticket-alt mr-3"></i> View All Experiences
+                </a>
+            </div>
+        </section>
+
+        <!-- Trust & Safety Section -->
+        <section class="bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-gray-100 mb-12">
+            <h3 class="text-3xl font-bold text-gray-800 mb-8 pb-4 border-b-2 border-red-100 flex items-center">
+                <i class="fas fa-shield-alt text-red-400 mr-3"></i>Your Safety & Trust
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-lg">
+                <div class="flex items-center p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200">
+                    <i class="fas fa-check-circle text-green-500 text-2xl mr-4"></i>
+                    <div>
+                        <p class="font-semibold text-gray-800">Verified Profiles</p>
+                        <p class="text-sm text-gray-600">Hosts and guests are verified for authenticity.</p>
+                    </div>
+                </div>
+                <div class="flex items-center p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200">
+                    <i class="fas fa-lock text-blue-500 text-2xl mr-4"></i>
+                    <div>
+                        <p class="font-semibold text-gray-800">Secure Payments</p>
+                        <p class="text-sm text-gray-600">Transactions are encrypted and protected.</p>
+                    </div>
+                </div>
+                <div class="flex items-center p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200">
+                    <i class="fas fa-headset text-red-500 text-2xl mr-4"></i>
+                    <div>
+                        <p class="font-semibold text-gray-800">24/7 Support</p>
+                        <p class="text-sm text-gray-600">Assistance available anytime, anywhere.</p>
+                    </div>
+                </div>
+                <div class="flex items-center p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200">
+                    <i class="fas fa-star-half-alt text-yellow-500 text-2xl mr-4"></i>
+                    <div>
+                        <p class="font-semibold text-gray-800">Guest & Host Reviews</p>
+                        <p class="text-sm text-gray-600">Transparent feedback system for informed choices.</p>
+                    </div>
+                </div>
+                <div class="flex items-center p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200">
+                    <i class="fas fa-house-user text-purple-500 text-2xl mr-4"></i>
+                    <div>
+                        <p class="font-semibold text-gray-800">Host Protection</p>
+                        <p class="text-sm text-gray-600">Insurance and guarantees for hosts.</p>
+                    </div>
+                </div>
+                <div class="flex items-center p-4 bg-gray-50 rounded-lg shadow-sm border border-gray-200">
+                    <i class="fas fa-gavel text-indigo-500 text-2xl mr-4"></i>
+                    <div>
+                        <p class="font-semibold text-gray-800">Community Standards</p>
+                        <p class="text-sm text-gray-600">Guidelines for respectful interactions.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="bg-red-500 p-8 md:p-10 rounded-2xl shadow-xl text-white text-center flex flex-col items-center justify-center">
+            <h2 class="text-3xl font-bold mb-4">Ready for Your Next Journey?</h2>
+            <p class="text-lg mb-8 max-w-2xl">
+                Start discovering unique homes and unforgettable experiences today.
+            </p>
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
+                <a href="/search-homes"
+                    class="inline-flex items-center px-8 py-3 border border-white text-lg font-medium rounded-lg shadow-sm text-red-500 bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white transition duration-300 ease-in-out transform hover:scale-105">
+                    <i class="fas fa-plane-departure mr-3"></i> Find a Stay
+                </a>
+                <a href="/home/add-home"
+                    class="inline-flex items-center px-8 py-3 border border-white text-lg font-medium rounded-lg shadow-sm text-white bg-transparent hover:bg-white hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white transition duration-300 ease-in-out transform hover:scale-105">
+                    <i class="fas fa-house-user mr-3"></i> Become a Host
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <%# include('partials/footer') %>
+</body>
+
+</html>
